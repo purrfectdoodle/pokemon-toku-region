@@ -27,6 +27,35 @@ static const s32 sPowersOfTen[] =
     1000000000,
 };
 
+static u8 sToLowerCaseMap[] = {
+    [CHAR_A] = CHAR_a,
+    [CHAR_B] = CHAR_b,
+    [CHAR_C] = CHAR_c,
+    [CHAR_D] = CHAR_d,
+    [CHAR_E] = CHAR_e,
+    [CHAR_F] = CHAR_f,
+    [CHAR_G] = CHAR_g,
+    [CHAR_H] = CHAR_h,
+    [CHAR_I] = CHAR_i,
+    [CHAR_J] = CHAR_j,
+    [CHAR_K] = CHAR_k,
+    [CHAR_L] = CHAR_l,
+    [CHAR_M] = CHAR_m,
+    [CHAR_N] = CHAR_n,
+    [CHAR_O] = CHAR_o,
+    [CHAR_P] = CHAR_p,
+    [CHAR_Q] = CHAR_q,
+    [CHAR_R] = CHAR_r,
+    [CHAR_S] = CHAR_s,
+    [CHAR_T] = CHAR_t,
+    [CHAR_U] = CHAR_u,
+    [CHAR_V] = CHAR_v,
+    [CHAR_W] = CHAR_w,
+    [CHAR_X] = CHAR_x,
+    [CHAR_Y] = CHAR_y,
+    [CHAR_Z] = CHAR_z,
+};
+
 u8 *StringCopy_Nickname(u8 *dest, const u8 *src)
 {
     u8 i;
@@ -810,7 +839,7 @@ s32 DoesStringContainMonName(const u8 *string, const u8 *monName)
             // Check if the current character is a space or a period. If we've captured a word, compare it.
             if (capturingWord) 
             {
-                wordBuffer[wordLength + 1] = EOS; // Null-terminate the buffer to make it a valid string
+                wordBuffer[wordLength] = EOS; // Null-terminate the buffer to make it a valid string
 
                 if (StringCompareWithoutExtCtrlCodes(wordBuffer, monName) == 0)
                     return wordStartIndex;
@@ -848,4 +877,26 @@ s32 DoesStringContainMonName(const u8 *string, const u8 *monName)
     }
 
     return -1; // No match found
+}
+
+static u8 ToLowerCaseChar(u8 c) 
+{
+    return (sToLowerCaseMap[c]) ? sToLowerCaseMap[c] : c;
+}
+
+u8 *ToLowerCase(const u8 *input) 
+{
+    u8 *output = Alloc(StringLength(input) + 1);
+    if (!output)
+        return NULL; // Allocation failed
+
+    while (*input != EOS) 
+    {
+        *output = ToLowerCaseChar(*input);
+        input++;
+        output++;
+    }
+
+    *output = EOS; 
+    return output;
 }
