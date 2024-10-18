@@ -30,8 +30,12 @@
 #define OVERWORLD_PAL(...)                                  \
     .overworldPalette = DEFAULT(NULL, __VA_ARGS__),         \
     .overworldShinyPalette = DEFAULT_2(NULL, __VA_ARGS__),
+#define OVERWORLD_PAL_FEMALE(...)                                 \
+    .overworldPaletteFemale = DEFAULT(NULL, __VA_ARGS__),         \
+    .overworldShinyPaletteFemale = DEFAULT_2(NULL, __VA_ARGS__),
 #else
 #define OVERWORLD_PAL(...)
+#define OVERWORLD_PAL_FEMALE(...)
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
 
 #define OVERWORLD(picTable, _size, shadow, _tracks, ...)                                    \
@@ -75,9 +79,34 @@
     .affineAnims = gDummySpriteAffineAnimTable,                                             \
 },                                                                                          \
     OVERWORLD_PAL(__VA_ARGS__)
+
+#define OVERWORLD_FEMALE(picTable, _size, shadow, _tracks, ...)                             \
+.overworldDataFemale = {                                                                    \
+    .tileTag = TAG_NONE,                                                                    \
+    .paletteTag = OBJ_EVENT_PAL_TAG_DYNAMIC,                                                \
+    .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,                                         \
+    .size = (_size == SIZE_32x32 ? 512 : 2048),                                             \
+    .width = (_size == SIZE_32x32 ? 32 : 64),                                               \
+    .height = (_size == SIZE_32x32 ? 32 : 64),                                              \
+    .paletteSlot = PALSLOT_NPC_1,                                                           \
+    .shadowSize = shadow,                                                                   \
+    .inanimate = FALSE,                                                                     \
+    .compressed = COMP,                                                                     \
+    .tracks = _tracks,                                                                      \
+    .oam = (_size == SIZE_32x32 ? &gObjectEventBaseOam_32x32 : &gObjectEventBaseOam_64x64), \
+    .subspriteTables = (_size == SIZE_32x32 ? sOamTables_32x32 : sOamTables_64x64),         \
+    .anims = sAnimTable_Following,                                                          \
+    .images = picTable,                                                                     \
+    .affineAnims = gDummySpriteAffineAnimTable,                                             \
+},                                                                                          \
+    OVERWORLD_PAL_FEMALE(__VA_ARGS__)
+
 #else
 #define OVERWORLD(picTable, _size, shadow, _tracks, ...)
 #define OVERWORLD_SET_ANIM(picTable, _size, shadow, _tracks, _anims, ...)
+#define OVERWORLD_FEMALE(picTable, _size, shadow, _tracks, ...)
+#define OVERWORLD_PAL(...)
+#define OVERWORLD_PAL_FEMALE(...)
 #endif //OW_POKEMON_OBJECT_EVENTS
 
 // Maximum value for a female Pokémon is 254 (MON_FEMALE) which is 100% female.

@@ -1792,7 +1792,7 @@ static bool32 CanAbilityTrapOpponent(u16 ability, u32 opponent)
 static inline bool32 IsFreeSwitch(bool32 isSwitchAfterKO, u32 battlerSwitchingOut, u32 opposingBattler)
 {
     bool32 movedSecond = GetBattlerTurnOrderNum(battlerSwitchingOut) > GetBattlerTurnOrderNum(opposingBattler) ? TRUE : FALSE;
-    
+
     // Switch out effects
     if (!IsDoubleBattle()) // Not handling doubles' additional complexity
     {
@@ -2242,6 +2242,10 @@ static bool32 ShouldUseItem(u32 battler)
         case EFFECT_ITEM_REVIVE:
             gBattleStruct->itemPartyIndex[battler] = GetFirstFaintedPartyIndex(battler);
             if (gBattleStruct->itemPartyIndex[battler] != PARTY_SIZE) // Revive if possible.
+                shouldUse = TRUE;
+            break;
+        case EFFECT_ITEM_USE_POKE_FLUTE:
+            if (gBattleMons[battler].status1 & STATUS1_SLEEP)
                 shouldUse = TRUE;
             break;
         default:
