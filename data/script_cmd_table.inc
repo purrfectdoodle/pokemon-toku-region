@@ -233,6 +233,8 @@ gScriptCmdTable::
 	.4byte ScrCmd_getgamestat                       @ 0xe6
 	.4byte ScrCmd_bufferspeciesdexdesc              @ 0xe7
 	.4byte ScrCmd_gettimeofday                      @ 0xe8
+	.4byte ScrCmd_randomdexmessage                  @ 0xe9
+	.4byte ScrCmd_closerandomdexmessage             @ 0xea
 
 gScriptCmdTableEnd::
 	.4byte ScrCmd_nop
