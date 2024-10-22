@@ -254,7 +254,7 @@ DOUBLE_BATTLE_TEST("Commander doesn't prevent Imposter from working on a Command
     }
 }
 
-DOUBLE_BATTLE_TEST("Commander Tatsugiri is still affected by Haze while controlling Dondozo")
+DOUBLE_BATTLE_TEST("Commander Tatsugiri is still affected by Perish Song while controlling Dondozo")
 {
     GIVEN {
         PLAYER(SPECIES_DONDOZO);

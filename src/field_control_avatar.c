@@ -346,7 +346,7 @@ static const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8
     s16 currX = gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x;
     s16 currY = gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y;
     u8 currBehavior = MapGridGetMetatileBehaviorAt(currX, currY);
-        
+
     switch (direction)
     {
     case DIR_EAST:
@@ -375,7 +375,7 @@ static const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8
         objectEventId = GetObjectEventIdByPosition(position->x, position->y, position->elevation);
         break;
     }
-    
+
     if (objectEventId == OBJECT_EVENTS_COUNT || gObjectEvents[objectEventId].localId == OBJ_EVENT_ID_PLAYER)
     {
         if (MetatileBehavior_IsCounter(metatileBehavior) != TRUE)
